@@ -56,7 +56,7 @@ def gen_aes_test_data(file):
 
     # AES-ECB
     cipher = cryptography.hazmat.primitives.ciphers.Cipher(
-        aes, cryptography.hazmat.primitives.ciphers.modes.ECB()
+        aes, cryptography.hazmat.primitives.ciphers.modes.ECB()  # noqa: S305 — FIPS test vector generation
     )
     encryptor = cipher.encryptor()
     ctext = encryptor.update(fips_test_data) + encryptor.finalize()
