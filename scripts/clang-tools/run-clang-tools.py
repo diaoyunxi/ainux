@@ -11,6 +11,7 @@ compile_commands.json.
 
 import argparse
 import json
+import os
 import multiprocessing
 import subprocess
 import sys
