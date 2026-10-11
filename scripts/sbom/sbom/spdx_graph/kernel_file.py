@@ -196,7 +196,7 @@ def _sha256(file_path: PathStr, chunk_size: int = 1 << 20) -> str:
 
 def _git_blob_oid(file_path: str, chunk_size: int = 1 << 20) -> str:
     """Compute the Git blob object ID (SHA-1 hex) for a file, like `git hash-object`, reading it in chunks of chunk_size bytes."""
-    h = hashlib.sha1()
+    h = hashlib.sha1(usedforsecurity=False)  # Git blob object ID, not security
     h.update(f"blob {os.path.getsize(file_path)}\0".encode())
     with open(file_path, "rb") as f:
         for chunk in iter(lambda: f.read(chunk_size), b""):
