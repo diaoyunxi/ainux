@@ -159,7 +159,7 @@ def arch_show_interrupts(prec):
     elif utils.is_target_arch("mips"):
         text += show_irq_err_count(prec)
     else:
-        raise gdb.GdbError("Unsupported architecture: {}".format(target_arch))
+        raise gdb.GdbError("Unsupported architecture: {}".format(utils.target_arch))
 
     return text
 
