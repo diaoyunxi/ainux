@@ -3,14 +3,11 @@
 #
 # Copyright (C) 2018-2019 Netronome Systems, Inc.
 # Copyright (C) 2021 Isovalent, Inc.
-
-# In case user attempts to run with Python 2.
-from __future__ import print_function
-
 import argparse
 import json
 import re
-import sys, os
+import os
+import sys
 import subprocess
 
 helpersDocStart = 'Start of BPF helper function descriptions:'
@@ -29,8 +26,6 @@ class ParsingError(BaseException):
                                    (reader.tell(), line))
         else:
             BaseException.__init__(self, 'Error parsing line: %s' % line)
-
-
 class APIElement(object):
     """
     An object representing the description of an aspect of the eBPF API.
@@ -49,8 +44,6 @@ class APIElement(object):
             'desc': self.desc,
             'ret': self.ret
         }
-
-
 class Helper(APIElement):
     """
     An object representing the description of an eBPF helper function.
@@ -94,13 +87,9 @@ class Helper(APIElement):
         d["attrs"] = self.attrs
         d.update(self.proto_break_down())
         return d
-
-
 ATTRS = {
     '__bpf_fastcall': 'bpf_fastcall'
 }
-
-
 class HeaderParser(object):
     """
     An object used to parse a file in order to extract the documentation of a
@@ -653,8 +642,6 @@ SEE ALSO
     def print_one(self, helper):
         self.print_proto(helper)
         self.print_elem(helper)
-
-
 class PrinterSyscallRST(PrinterRST):
     """
     A printer for dumping collected information about the syscall API as a
@@ -687,8 +674,6 @@ COMMANDS
     def print_one(self, command):
         print('**%s**' % (command.proto))
         self.print_elem(command)
-
-
 class PrinterHelpersHeader(Printer):
     """
     A printer for dumping collected information about helpers as C header to
@@ -910,8 +895,6 @@ class PrinterHelpersHeader(Printer):
 
         print(') = (void *) %d;' % helper.enum_val)
         print('')
-
-
 class PrinterHelpersJSON(Printer):
     """
     A printer for dumping collected information about helpers as a JSON file.
@@ -931,8 +914,6 @@ class PrinterHelpersJSON(Printer):
         helper_dicts = [helper.to_dict() for helper in self.elements]
         out_dict = {'helpers': helper_dicts}
         print(json.dumps(out_dict, indent=4))
-
-
 class PrinterSyscallJSON(Printer):
     """
     A printer for dumping collected syscall information as a JSON file.
